@@ -1,0 +1,31 @@
+#:kivy 2.1.0
+
+<MainFloatLayout>:
+    canvas.before:
+        Color:
+            rgba: 0.12, 0.12, 0.12, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    AnchorLayout:
+        anchor_x: "center"
+        anchor_y: "center"
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: 0.3, 0.3
+            spacing: "10dp"
+            Label:
+                text: "Eztracurriculars"
+                font_size: "20sp"
+                color: 1, 1, 1, 1
+                canvas.before:
+                    Color:
+                        rgba: 0.2, 0.2, 0.2, 1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+            Button:
+                size_hint: 1, 0.75
+                text: "Find extracurriculars"
+                color: 1, 1, 1, 1
+                background_color: 0.3, 0.3, 0.3, 1
