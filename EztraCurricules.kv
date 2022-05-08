@@ -2,6 +2,7 @@
 
 WindowManager:
     MainWindow:
+    FormWindow:
     BrowseWindow:
 
 <MainWindow>:
@@ -18,11 +19,12 @@ WindowManager:
         anchor_y: "center"
         BoxLayout:
             orientation: "vertical"
-            size_hint: 0.3, 0.3
+            size_hint: 0.5, 0.3
             spacing: "10dp"
             Label:
+                size_hint: 1, 0.6
                 text: "Eztracurriculars"
-                font_size: "20sp"
+                font_size: "16sp"
                 color: 1, 1, 1, 1
                 canvas.before:
                     Color:
@@ -31,12 +33,105 @@ WindowManager:
                         pos: self.pos
                         size: self.size
             Button:
-                size_hint: 1, 0.75
+                size_hint: 1, 0.4
                 text: "Find extracurriculars"
+                font_size: "13sp"
                 color: 1, 1, 1, 1
                 background_color: 0.3, 0.3, 0.3, 1
                 on_press: root.start_button_click()
-                on_release: app.root.current = "Browse"
+                on_release: 
+                    app.root.current = "Form"
+                    root.manager.transition.direction = "left"
+
+<FormWindow>:
+    name: "Form"
+    BoxLayout:
+        orientation: "vertical"
+        canvas.before:
+            Color:
+                rgba: 0.12, 0.12, 0.12, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint: 1, 0.05
+            Label:
+                size_hint: 1, 1
+                text: "Eztracurriculars"
+                color: 1, 1, 1, 1
+                canvas.before:
+                    Color:
+                        rgba: 0.2, 0.2, 0.2, 1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+            Button:
+                size_hint: 0.075, 1
+                text: "X"
+                color: 1, 0.1, 0.1, 1
+                background_color: 0.3, 0.3, 0.3, 1
+                on_press: root.start_button_click()
+                on_release: 
+                    app.root.current = "Main"
+                    root.manager.transition.direction = "right"
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint: 1, 1
+            ScrollView:
+                StackLayout:
+                    cols: 1
+                    size_hint: 1, None
+                    height: 1000
+                    spacing: "10dp"
+                    BoxLayout:
+                        orientation: "vertical"
+                        size_hint: 1, 0.2
+                        Label:
+                            text: "What interests you? Feel free to type\nany keywords seperated by commas\nto find extracurriculars."
+                            canvas.before:
+                                Color:
+                                    rgba: 0.2, 0.1, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                        TextInput:
+                            id: keywords_input
+                            text: "type here"
+                            color: 1, 1, 1, 1
+                            on_change: 
+                    BoxLayout:
+                        orientation: "vertical"
+                        size_hint: 1, 0.2
+                        Label:
+                            text: "What time are you available for an\nextracurricular?"
+                            canvas.before:
+                                Color:
+                                    rgba: 0.2, 0.1, 0.2, 1
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+                        TextInput:
+                            text: "type here"
+                            color: 1, 1, 1, 1
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: 1, 0.3
+            Button:
+                size_hint: 1, 0.6
+                text: "Submit form"
+                color: 0.7, 1, 0.7, 1
+                background_color: 0.3, 0.3, 0.3, 1
+                on_release: 
+                    root.submit_button_click()
+                    app.root.current = "Browse"
+                    root.manager.transition.direction = "left"
+            Button:
+                size_hint: 1, 0.4
+                text: "Clear form"
+                color: 1, 0.7, 0.7, 1
+                background_color: 0.3, 0.3, 0.3, 1
+                on_release: root.clean_button_click()
 
 <BrowseWindow>:
     name: "Browse"
@@ -62,12 +157,14 @@ WindowManager:
                         pos: self.pos
                         size: self.size
             Button:
-                size_hint: 0.05, 1
+                size_hint: 0.075, 1
                 text: "X"
-                color: 1, 1, 1, 1
+                color: 1, 0.1, 0.1, 1
                 background_color: 0.3, 0.3, 0.3, 1
                 on_press: root.start_button_click()
-                on_release: app.root.current = "Main"
+                on_release: 
+                    app.root.current = "Main"
+                    root.manager.transition.direction = "right"
         BoxLayout:
             orientation: "horizontal"
             size_hint: 1, 1
@@ -81,7 +178,7 @@ WindowManager:
                         orientation: "vertical"
                         size_hint: 1, 0.2
                         Label:
-                            text: "What interests you? Feel free to type any keywords\nseperated by commas to find extracurriculars."
+                            text: "What interests you? Feel free to type\nany keywords seperated by commas\nto find extracurriculars."
                             canvas.before:
                                 Color:
                                     rgba: 0.2, 0.1, 0.2, 1
@@ -89,13 +186,15 @@ WindowManager:
                                     pos: self.pos
                                     size: self.size
                         TextInput:
-                            text: "Input"
+                            id: keywords_input
+                            text: "type here"
                             color: 1, 1, 1, 1
+                            on_change: 
                     BoxLayout:
                         orientation: "vertical"
                         size_hint: 1, 0.2
                         Label:
-                            text: "What time are you available for an extracurricular?"
+                            text: "What time are you available for an\nextracurricular?"
                             canvas.before:
                                 Color:
                                     rgba: 0.2, 0.1, 0.2, 1
@@ -103,59 +202,16 @@ WindowManager:
                                     pos: self.pos
                                     size: self.size
                         TextInput:
-                            text: "Input"
-                            color: 1, 1, 1, 1
-            ScrollView:
-                StackLayout:
-                    cols: 1
-                    size_hint: 1, None
-                    height: 1000
-                    spacing: "10dp"
-                    BoxLayout:
-                        orientation: "vertical"
-                        size_hint: 1, 0.2
-                        Label:
-                            text: "Whats your name?"
-                            canvas.before:
-                                Color:
-                                    rgba: 0.2, 0.1, 0.2, 1
-                                Rectangle:
-                                    pos: self.pos
-                                    size: self.size
-                        TextInput:
-                            text: "Input"
-                            color: 1, 1, 1, 1
-                    BoxLayout:
-                        orientation: "vertical"
-                        size_hint: 1, 0.2
-                        Label:
-                            text: "Whats your name?"
-                            canvas.before:
-                                Color:
-                                    rgba: 0.2, 0.1, 0.2, 1
-                                Rectangle:
-                                    pos: self.pos
-                                    size: self.size
-                        TextInput:
-                            text: "Inout"
+                            text: "type here"
                             color: 1, 1, 1, 1
         BoxLayout:
-            orientation: "horizontal"
-            size_hint: 1, 0.05
+            orientation: "vertical"
+            size_hint: 1, 0.1
             Button:
-                size_hint: 0.5, 1
-                text: "Submit form "
-                color: 1, 1, 1, 1
+                size_hint: 1, 1
+                text: "Return to form"
+                color: 0.7, 1, 0.7, 1
                 background_color: 0.3, 0.3, 0.3, 1
-                on_press: root.start_button_click()
-                on_release: app.root.current = "Main"
-            Label:
-                size_hint: 0.5, 1
-                text: "Thanks for using this application. Developed by Lukas."
-                color: 1, 1, 1, 1
-                canvas.before:
-                    Color:
-                        rgba: 0.2, 0.2, 0.2, 1
-                    Rectangle:
-                        pos: self.pos
-                        size: self.size
+                on_release: 
+                    app.root.current = "Form"
+                    root.manager.transition.direction = "right"
