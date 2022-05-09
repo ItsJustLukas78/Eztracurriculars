@@ -1,3 +1,4 @@
+# Designed by Lukas Somwong
 from kivy.app import App
 from kivy.config import Config
 from kivy.lang import Builder
@@ -8,6 +9,7 @@ import sqlite3
 # from kivy.uix.button import Button
 # from kivy.uix.widget import Widget
 
+# Store data such as keywords to be quickly accessed
 user_data = {
     "keywords": []
 }
@@ -46,13 +48,20 @@ class WindowManager(ScreenManager):
 class EztraCurriculesApp(App):
     def build(self):
 
-        #store_connection = sqlite3.connect("app_data.db")
+        # Data storage for persistant data between sessions
+        '''
+        store_connection = sqlite3.connect("app_data.db")
+        store_cursor = store_connection.cursor()
+        store_cursor.executescript()
+        store_connection.commit()
+        store_connection.close()
+        '''
 
-        #store_cursor = store_connection.cursor()
-
+        # Allows application to be resized
         Config.set('graphics', 'resizable', '1')
 
         return Builder.load_file("EztraCurricules.kv")
 
 if __name__ == '__main__':
+    # Loop that continuously runs until the application gui is closed
     EztraCurriculesApp().run()
