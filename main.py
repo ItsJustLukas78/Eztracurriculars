@@ -10,6 +10,7 @@ from kivy.graphics import Rectangle, Color
 from kivy.uix.boxlayout import BoxLayout
 # from kivy.uix.button import Button
 from kivy.uix.label import Label
+from kivy.uix.image import Image
 # from kivy.uix.widget import Widget
 
 app_data_Json = JsonStore("app_data")
@@ -22,27 +23,44 @@ temp_data = {
 }
 
 class BrowseObject(BoxLayout):
-    def __init__(self, title, **kwargs):
+    def __init__(self, title, bio, **kwargs):
         super().__init__(**kwargs)
-        self.orientation = "vertical"
+        self.orientation = "horizontal"
         self.size_hint=(1, None)
         self.height = app.root.ids.FormWindow.size[1] * 0.2
 
-        self.Label1 = Label(text = title)
-        self.add_widget(self.Label1)
-        
+        self.Image1 = Image(source = 'DHS_logo.png', size_hint = (0.3, 1))
+        self.add_widget(self.Image1)
+
+        self.BoxLayout1 = BoxLayout(orientation="vertical", size_hint = (0.7, 1))
+        self.add_widget(self.BoxLayout1)
+
+        self.Label1 = Label(text = title, size_hint = (1, 0.5))
+        self.BoxLayout1.add_widget(self.Label1)
         with self.Label1.canvas.before:
-            Color(0.2, 0.1, 0.2, 1)
+            Color(0.08, 0.37, 0.81, 1)
             self.Label1.rect = Rectangle(pos = self.Label1.pos, size = self.Label1.size)
+
+        self.Label2 = Label(text = bio, size_hint = (1, 0.5))
+        self.BoxLayout1.add_widget(self.Label2)
+        with self.Label2.canvas.before:
+            Color(0.23, 0.5, 0.9, 1)
+            self.Label2.rect = Rectangle(pos = self.Label1.pos,size = self.Label1.size)
         
         app.root.bind(size=self.update)
         self.Label1.bind(pos=self.update)
         self.Label1.bind(size=self.update)
+        self.Label2.bind(pos=self.update)
+        self.Label2.bind(size=self.update)
 
     def update(self, *args):
         self.height = app.root.size[1] * 0.3
         self.Label1.rect.pos = self.Label1.pos
         self.Label1.rect.size = self.Label1.size
+        self.Label1.text_size = self.Label1.size
+        self.Label2.rect.pos = self.Label2.pos
+        self.Label2.rect.size = self.Label2.size
+        self.Label2.text_size = self.Label2.size
 
 
 
@@ -78,7 +96,7 @@ class FormWindow(Screen):
         
         for x in range(5):
 
-            Layout = BrowseObject("Foo Bar")
+            Layout = BrowseObject("Dublin High School", "Dublin High School is a school of the Dublin Unified School district in Dublin, California.")
             browser_layout.add_widget(Layout)
             temp_data["browser_objects"].append(Layout)
         
