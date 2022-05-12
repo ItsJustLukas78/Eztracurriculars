@@ -35,10 +35,12 @@ class BrowseObject(BoxLayout):
             Color(0.2, 0.1, 0.2, 1)
             self.Label1.rect = Rectangle(pos = self.Label1.pos, size = self.Label1.size)
         
+        app.root.bind(size=self.update)
         self.Label1.bind(pos=self.update)
         self.Label1.bind(size=self.update)
 
     def update(self, *args):
+        self.height = app.root.size[1] * 0.3
         self.Label1.rect.pos = self.Label1.pos
         self.Label1.rect.size = self.Label1.size
 
@@ -60,24 +62,27 @@ class FormWindow(Screen):
     def start_button_click(self):
         print("clicked out")
 
+    # When the submit button is clicked on the form page, this function will be called
     def submit_button_click(self):
         if temp_data["keywords"] == [keyword.strip(" ") for keyword in self.ids.keywords_input.text.strip(" ,").split(",")]:
             return
         
         temp_data["keywords"] = [keyword.strip(" ") for keyword in self.ids.keywords_input.text.strip(" ,").split(",")]
         print(temp_data)
-
-        temp_data["browser_objects"].clear()
         
         browser_layout = self.parent.ids.BrowseWindow.ids.browser_layout
 
+        for widget in temp_data["browser_objects"]:
+            browser_layout.remove_widget(widget)
+            temp_data["browser_objects"].remove(widget)
+        
         for x in range(5):
 
             Layout = BrowseObject("Foo Bar")
             browser_layout.add_widget(Layout)
             temp_data["browser_objects"].append(Layout)
         
-        for x in temp_data["browse_objects"]:
+        for x in temp_data["browser_objects"]:
             print(x)
 
     
