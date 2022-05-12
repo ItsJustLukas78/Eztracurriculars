@@ -2,11 +2,16 @@
 
 WindowManager:
     MainWindow:
+        id: MainWindow
+        name: "Main"
     FormWindow:
+        id: FormWindow
+        name: "Form"
     BrowseWindow:
+        id: BrowseWindow
+        name: "Browse"
 
 <MainWindow>:
-    name: "Main"
     FloatLayout:
         canvas.before:
             Color:
@@ -44,7 +49,6 @@ WindowManager:
                     root.manager.transition.direction = "left"
 
 <FormWindow>:
-    name: "Form"
     BoxLayout:
         orientation: "vertical"
         canvas.before:
@@ -134,7 +138,6 @@ WindowManager:
                 on_release: root.clean_button_click()
 
 <BrowseWindow>:
-    name: "Browse"
     BoxLayout:
         orientation: "vertical"
         canvas.before:
@@ -170,40 +173,11 @@ WindowManager:
             size_hint: 1, 1
             ScrollView:
                 StackLayout:
+                    id: browser_layout
                     cols: 1
                     size_hint: 1, None
-                    height: 1000
+                    height: self.minimum_height
                     spacing: "10dp"
-                    BoxLayout:
-                        orientation: "vertical"
-                        size_hint: 1, 0.2
-                        Label:
-                            text: "What interests you? Feel free to type\nany keywords seperated by commas\nto find extracurriculars."
-                            canvas.before:
-                                Color:
-                                    rgba: 0.2, 0.1, 0.2, 1
-                                Rectangle:
-                                    pos: self.pos
-                                    size: self.size
-                        TextInput:
-                            id: keywords_input
-                            text: "type here"
-                            color: 1, 1, 1, 1
-                            on_change: 
-                    BoxLayout:
-                        orientation: "vertical"
-                        size_hint: 1, 0.2
-                        Label:
-                            text: "What time are you available for an\nextracurricular?"
-                            canvas.before:
-                                Color:
-                                    rgba: 0.2, 0.1, 0.2, 1
-                                Rectangle:
-                                    pos: self.pos
-                                    size: self.size
-                        TextInput:
-                            text: "type here"
-                            color: 1, 1, 1, 1
         BoxLayout:
             orientation: "vertical"
             size_hint: 1, 0.1
