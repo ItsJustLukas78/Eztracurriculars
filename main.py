@@ -29,19 +29,22 @@ class BrowseObject(BoxLayout):
         self.size_hint=(1, None)
         self.height = app.root.ids.FormWindow.size[1] * 0.2
 
-        self.Image1 = Image(source = 'DHS_logo.png', size_hint = (0.3, 1))
-        self.add_widget(self.Image1)
-
-        self.BoxLayout1 = BoxLayout(orientation="vertical", size_hint = (0.7, 1))
+        self.BoxLayout1 = BoxLayout(orientation="vertical", size_hint = (1, 1))
         self.add_widget(self.BoxLayout1)
 
-        self.Label1 = Label(text = title, size_hint = (1, 0.5))
-        self.BoxLayout1.add_widget(self.Label1)
+        self.BoxLayout2 = BoxLayout(orientation="horizontal", size_hint = (1, 0.3))
+        self.BoxLayout1.add_widget(self.BoxLayout2)
+
+        self.Image1 = Image(source = 'DHS_logo.png', size_hint = (0.3, 1))
+        self.BoxLayout2.add_widget(self.Image1)
+
+        self.Label1 = Label(text = title, font_name ="Roboto-Bold", font_size = "18sp", valign = "bottom", halign = "left", padding = (5, 5),size_hint = (0.7, 1))
+        self.BoxLayout2.add_widget(self.Label1)
         with self.Label1.canvas.before:
             Color(0.08, 0.37, 0.81, 1)
             self.Label1.rect = Rectangle(pos = self.Label1.pos, size = self.Label1.size)
 
-        self.Label2 = Label(text = bio, size_hint = (1, 0.5))
+        self.Label2 = Label(text = bio, font_name ="Roboto-Bold", font_size = "13sp",  valign = "top", halign = "left", padding = (5, 5), size_hint = (1, 1), )
         self.BoxLayout1.add_widget(self.Label2)
         with self.Label2.canvas.before:
             Color(0.23, 0.5, 0.9, 1)
@@ -94,7 +97,7 @@ class FormWindow(Screen):
             browser_layout.remove_widget(widget)
             temp_data["browser_objects"].remove(widget)
         
-        for x in range(5):
+        for x in range(7):
 
             Layout = BrowseObject("Dublin High School", "Dublin High School is a school of the Dublin Unified School district in Dublin, California.")
             browser_layout.add_widget(Layout)
@@ -129,6 +132,9 @@ class EztraCurriculesApp(App):
 
         # Allows application to be resized
         Config.set('graphics', 'resizable', '1')
+        Config.set('graphics', 'width', '375')
+        Config.set('graphics', 'height', '812')
+        Config.write()
 
         global app
         app = App.get_running_app()
