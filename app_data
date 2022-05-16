@@ -62,6 +62,27 @@
           "tournaments",
           "politics"
         ]
+      },
+      "Astronomy Club": {
+        "bio": "Prompt interest in astronomy and alike, expanding knowledge with one another as well as listening to guest speakers. Members will view the stars and learn how to use a telescope, as well as be invited to star parties.",
+        "links": {
+          "Website": "https://docs.google.com/document/d/1HnSHUwS0nOd6CMF4jqqWiEyWjQoraqboc_rrEWdzcAo/edit",
+          "Sign up here!": "https://docs.google.com/forms/d/15Z2X-wE8ajJN_xtjzjK0hND7z1apnr0h6JRfCpKB6hs/viewform?edit_requested=true"
+        },
+        "keywords": [
+          "dhs astronomy",
+          "astronomy",
+          "space", 
+          "stars",
+          "planets",
+          "telescope",
+          "galaxy",
+          "comets",
+          "physics",
+          "astrophysics",
+          "stargazing",
+          "star parties"
+        ]
       }
   }
 }
