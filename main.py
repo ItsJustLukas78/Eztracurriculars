@@ -15,6 +15,7 @@ from kivy.uix.image import Image
 app_data_Json = JsonStore("app_data")
 user_data_Json = JsonStore("user_data")
 
+# Constants
 BROWSE_OBJECT_HEIGHT = 0.3
 BROWSE_OBJECT_TITLE_COLOR = (0.027, 0.455, 0.612, 1)
 BROWSE_OBJECT_BIO_COLOR = (0.035, 0.569, 0.765, 1)
@@ -29,7 +30,7 @@ temp_data = {
     "results": {}
 }
 
-
+# BrowseObject constructor, BrowseObjects are the layouts  found after submitting the form
 class BrowseObject(BoxLayout):
     def __init__(self, title, bio, keywords, links = None, **kwargs):
         super().__init__(**kwargs)
@@ -44,21 +45,20 @@ class BrowseObject(BoxLayout):
         self.add_widget(self.BoxLayout1)
 
         # Top Layout
-        self.BoxLayout2 = BoxLayout(orientation="horizontal", size_hint = (1, 0.25))
+        self.BoxLayout2 = BoxLayout(orientation="horizontal", padding = (3, 3), size_hint = (1, 0.25))
         self.BoxLayout1.add_widget(self.BoxLayout2)
+        with self.BoxLayout2.canvas.before:
+            Color(*BROWSE_OBJECT_TITLE_COLOR)
+            self.BoxLayout2.rect = Rectangle(pos = self.BoxLayout2.pos, size = self.BoxLayout2.size)
+        self.widgets_with_canvas.append(self.BoxLayout2)
 
         # Logo
-        self.Image1 = Image(source = 'DHS_logo.png', size_hint = (0.3, 1))
+        self.Image1 = Image(source = "Images/" + title + ".png", mipmap = True, size_hint = (0.3, 1))
         self.BoxLayout2.add_widget(self.Image1)
-
 
         # Title
         self.Label1 = Label(text = title, font_name ="Roboto-Bold", font_size = "18sp", valign = "bottom", halign = "left", padding = (5, 5),size_hint = (0.7, 1))
         self.BoxLayout2.add_widget(self.Label1)
-        with self.Label1.canvas.before:
-            Color(*BROWSE_OBJECT_TITLE_COLOR)
-            self.Label1.rect = Rectangle(pos = self.Label1.pos, size = self.Label1.size)
-        self.widgets_with_canvas.append(self.Label1)
 
         # Bio
         self.Label2 = Label(text = bio, font_name ="Roboto-Bold", font_size = "13sp",  valign = "top", halign = "left", padding = (5, 5), size_hint = (1, 0.25))
@@ -115,7 +115,6 @@ class BrowseObject(BoxLayout):
             Element.text_size = Element.size
     
     def link_callback(self, url, *args):
-        pass
         webbrowser.open(url)
 
 
@@ -211,6 +210,7 @@ class EztraCurriculesApp(App):
 
         return Builder.load_file("EztraCurricules.kv")
 
+# If the python file was called ..
 if __name__ == '__main__':
     # Loop that continuously runs until the application gui is closed
     EztraCurriculesApp().run()
