@@ -39,50 +39,112 @@
           "charity",
           "raise money"
         ]
+    },
+    "DHS Speech & Debate": {
+      "bio": "Represent DHS at competitive tournaments and develop communication, world knowledge, argumentation, critical thinking, and writing skills",
+      "links": {
+        "Website": "https://dhsspeechndebate.weebly.com/",
+        "Guide": "https://docs.google.com/document/d/1N_Iuq2sLSx8fXeFtHW-vOkV75VBGtanJcdffkrR-NgY/edit",
+        "Discord": "https://discord.gg/beHrUDZ"
       },
-      "DHS Speech & Debate": {
-        "bio": "Represent DHS at competitive tournaments and develop communication, world knowledge, argumentation, critical thinking, and writing skills",
-        "links": {
-          "Website": "https://dhsspeechndebate.weebly.com/",
-          "Guide": "https://docs.google.com/document/d/1N_Iuq2sLSx8fXeFtHW-vOkV75VBGtanJcdffkrR-NgY/edit",
-          "Discord": "https://discord.gg/beHrUDZ"
-        },
-        "keywords": [
-          "dhs speech & debate",
-          "debate",
-          "speech", 
-          "communication",
-          "club",
-          "world knowledge",
-          "argumentation",
-          "critical thinking",
-          "writing",
-          "academic",
-          "competitions",
-          "tournaments",
-          "politics"
-        ]
+      "keywords": [
+        "dhs speech & debate",
+        "debate",
+        "speech", 
+        "communication",
+        "club",
+        "world knowledge",
+        "argumentation",
+        "critical thinking",
+        "writing",
+        "academic",
+        "competitions",
+        "tournaments",
+        "politics"
+      ]
+    },
+    "Astronomy Club": {
+      "bio": "Prompt interest in astronomy and alike, expanding knowledge with one another as well as listening to guest speakers. Members will view the stars and learn how to use a telescope, as well as be invited to star parties.",
+      "links": {
+        "Website": "https://docs.google.com/document/d/1HnSHUwS0nOd6CMF4jqqWiEyWjQoraqboc_rrEWdzcAo/edit",
+        "Sign up here!": "https://docs.google.com/forms/d/15Z2X-wE8ajJN_xtjzjK0hND7z1apnr0h6JRfCpKB6hs/viewform?edit_requested=true"
       },
-      "Astronomy Club": {
-        "bio": "Prompt interest in astronomy and alike, expanding knowledge with one another as well as listening to guest speakers. Members will view the stars and learn how to use a telescope, as well as be invited to star parties.",
-        "links": {
-          "Website": "https://docs.google.com/document/d/1HnSHUwS0nOd6CMF4jqqWiEyWjQoraqboc_rrEWdzcAo/edit",
-          "Sign up here!": "https://docs.google.com/forms/d/15Z2X-wE8ajJN_xtjzjK0hND7z1apnr0h6JRfCpKB6hs/viewform?edit_requested=true"
-        },
-        "keywords": [
-          "dhs astronomy",
-          "astronomy",
-          "space", 
-          "stars",
-          "planets",
-          "telescope",
-          "galaxy",
-          "comets",
-          "physics",
-          "astrophysics",
-          "stargazing",
-          "star parties"
-        ]
-      }
+      "keywords": [
+        "astronomy",
+        "space", 
+        "stars",
+        "planets",
+        "telescope",
+        "galaxy",
+        "comets",
+        "physics",
+        "astrophysics",
+        "stargazing",
+        "star parties",
+        "club",
+        "astronomy club"
+      ]
+    },
+    "CSF: California Scholarship Federation": {
+      "bio": "Join an honors organization focused on academic achievements and community service, emphasizing high Californian scholarship standards. Members apply using an application along with grades and GPA, and accepted students will do volunteer hours for scholarships.",
+      "links": {
+        "Info": "https://docs.google.com/document/d/1lv6doYeAKRPh5Bj14PQUCaTThd-4-jjdT00DhTtBuCo/edit"
+      },
+      "keywords": [
+        "volunteer",
+        "volunteering", 
+        "scholarship",
+        "scholarships",
+        "community",
+        "community service",
+        "communities",
+        "service",
+        "csf",
+        "federation",
+        "honors",
+        "fundraising",
+        "fundraisers"
+      ]
+    },
+    "Dublin Shield": {
+      "bio": "Participate in writing the school newspaper, which has originated in at least the 80s. Provide weekly news about Dublin High to all students and staff, publishing news biweekly while also expanding on social media presence.",
+      "links": {
+        "Info": "https://docs.google.com/document/d/1cRIgHiFU_da98mPNVoyKX_x9Gg26bd83NEtPSZ0c1MI/edit"
+      },
+      "keywords": [
+        "news",
+        "writing", 
+        "newspaper",
+        "newsletter",
+        "source",
+        "school paper",
+        "write",
+        "journal",
+        "journalism",
+        "information"
+      ]
+    },
+    "Gender Sexuality Alliance": {
+     "bio": "Become part of a safe space in Dublin High school ,open to all LGBTQIA+ students and allies. Learn about the community and become more informed of the important issues revolving around sexuality and become part of the community as a whole.",
+     "links": {
+       "Sign up & Description": "https://docs.google.com/document/d/1Qbx9ntXq0kla5iApk4rBIUN6A0-xGE59Hw9n8lM0dPY/edit",
+       "Questions for Club (School email required)": "https://docs.google.com/forms/d/1puz4JqjZ8xRgWzcUWgrbHwxROYa1O3YmBy1wzfXKmCM/viewform?edit_requested=true"
+      },
+     "keywords": [
+       "lgbtqia+",
+       "lgbtq+", 
+       "lgbt+",
+       "lesbian",
+       "gay",
+       "queer",
+       "bisexual",
+       "transgender",
+       "intersexual",
+       "asexual",
+       "gender",
+       "awareness",
+       "pansexual"
+      ]
+    }
   }
 }
