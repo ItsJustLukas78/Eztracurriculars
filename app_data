@@ -145,6 +145,50 @@
        "awareness",
        "pansexual"
       ]
+    },
+    "Creativity Club": {
+      "bio": "Express creativity through many extracurriculars and reduce stress levels with friends. Available activities include sewing, drawing, art, painting, cooking, baking, and scrapbooking. ",
+      "links": {
+        "Sign up!": "https://docs.google.com/document/d/1Rh8uCnj2I7qYwiod5_Swx0fVA8HxmEs_tJKnCGdmLW0/edit"
+       },
+      "keywords": [
+        "creativity",
+        "art", 
+        "creative",
+        "calming",
+        "relaxing",
+        "sewing",
+        "cooking",
+        "baking",
+        "drawing",
+        "painting",
+        "scrapbooking"
+       ]
+     },
+     "Dublin Athletics": {
+      "bio": "Participate in extracurriculars such as track or basketball, and get yourself involved with Dublin High School.",
+      "links": {
+        "Website": "https://dublingaels.com/"
+       },
+      "keywords": [
+        "sports",
+        "sport", 
+        "basketball",
+        "lacrosse",
+        "soccer",
+        "football",
+        "volleyball",
+        "track and field",
+        "track",
+        "cross country",
+        "wrestling",
+        "tennis",
+        "swimming",
+        "softball",
+        "cheer",
+        "badminton",
+        "golf"
+       ]
     }
   }
 }
