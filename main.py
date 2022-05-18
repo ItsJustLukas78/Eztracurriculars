@@ -1,5 +1,7 @@
-from functools import partial
 import webbrowser
+import time
+import threading
+from functools import partial
 from kivy.app import App
 from kivy.config import Config
 from kivy.lang import Builder
@@ -13,7 +15,14 @@ from kivy.uix.label import Label
 from kivy.uix.image import Image
 
 app_data_Json = JsonStore("app_data")
-user_data_Json = JsonStore("user_data")
+
+# Allows application to be resized
+Config.set('graphics', 'resizable', '1')
+
+# Sets width and height at which the app should launch at
+Config.set('graphics', 'width', '375')
+Config.set('graphics', 'height', '812')
+Config.write()
 
 # Constants
 BROWSE_OBJECT_HEIGHT = 0.3
@@ -30,9 +39,19 @@ temp_data = {
     "results": {}
 }
 
-# BrowseObject constructor, BrowseObjects are the layouts  found after submitting the form
+# BrowseObject constructor, BrowseObjects are the layouts found after submitting the form
 class BrowseObject(BoxLayout):
     def __init__(self, title, bio, keywords, links = None, **kwargs):
+        """Creates a BrowseObject
+
+            Parameters: 
+                title (str): The title of the group 
+                bio (str): The bio of the group 
+                keywords (list): Matched keywords to be displayed 
+                links (dict): Dictionary of titles assigned to url links 
+
+        
+        """
         super().__init__(**kwargs)
         self.orientation = "horizontal"
         self.size_hint=(1, None)
@@ -94,18 +113,18 @@ class BrowseObject(BoxLayout):
                 button.bind(on_release = open_link)
 
         # Keywords layout
-        self.StackLayout2 = StackLayout(size_hint = (0.5, 1))
-        self.BoxLayout3.add_widget(self.StackLayout2)
-        with self.StackLayout2.canvas.before:
+        self.Label3 = Label(text = "Matched keywords: \n" + ", ".join(keywords), font_name ="Roboto-Bold", font_size = "13sp",  valign = "top", halign = "left", padding = (5, 5), size_hint = (0.5, 1))
+        self.BoxLayout3.add_widget(self.Label3)
+        with self.Label3.canvas.before:
             Color(*BROWSE_OBJECT_BOTTOM_LAYOUT_COLOR)
-            self.StackLayout2.rect = Rectangle(pos = self.StackLayout2.pos,size = self.StackLayout2.size)
-        self.widgets_with_canvas.append(self.StackLayout2)
+            self.Label3.rect = Rectangle(pos = self.Label3.pos,size = self.Label3.size)
+        self.widgets_with_canvas.append(self.Label3)
     
         app.root.bind(size=self.update)
 
         for Element in self.widgets_with_canvas:
-                Element.bind(pos=self.update)
-                Element.bind(size=self.update)
+            Element.bind(pos=self.update)
+            Element.bind(size=self.update)
 
     def update(self, *args):
         self.height = app.root.size[1] * BROWSE_OBJECT_HEIGHT
@@ -122,14 +141,10 @@ class BrowseWindow(Screen):
     pass
 
 class FormWindow(Screen):
-    pass
 
     # When the submit button is clicked on the form page, this function will be called
     def submit_button_click(self):
-        if temp_data["keywords"] == [keyword.strip(" ") for keyword in self.ids.keywords_input.text.strip(" ,").split(",")]:
-            return
-        
-        temp_data["keywords"] = [keyword.strip(" ") for keyword in self.ids.keywords_input.text.strip(" ,").split(",")]
+        temp_data["keywords"] = [keyword.strip(" ") for keyword in self.ids.keywords_input.text.lower().strip(" ,").split(",")]
         
         browser_layout = self.parent.ids.BrowseWindow.ids.browser_layout
 
@@ -162,16 +177,32 @@ class FormWindow(Screen):
 
         results = create_result()
 
-        for group in results:
-            print("CREATING GROUP", group)
-            group_data = temp_data["groups"][group]
-            Layout = BrowseObject(group, group_data["bio"], results[group]["matched_keywords"], group_data["links"])
-            browser_layout.add_widget(Layout)
-            temp_data["browser_objects"].append(Layout)
+        if results != {}:
+            for group in results:
+                print("CREATING GROUP", group)
+                group_data = temp_data["groups"][group]
+                Layout = BrowseObject(group, group_data["bio"], results[group]["matched_keywords"], group_data["links"])
+                browser_layout.add_widget(Layout)
+                temp_data["browser_objects"].append(Layout)
+
+            app.root.transition.direction = "left"
+            app.root.current = "Browse"
+        else:
+            threading.Thread(
+                target = lambda: (
+                    setattr(app.root.ids.FormWindow.ids.SubmitButton, "text", "No groups were matched!"), 
+                    time.sleep(3),
+                    setattr(app.root.ids.FormWindow.ids.SubmitButton, "text", "Submit form"))).start()
+
 
     def clean_button_click(self):
-        self.ids.keywords_input.text = "type here"
+        self.ids.keywords_input.text = ""
         temp_data["keywords"].clear()
+        threading.Thread(
+                target = lambda: (
+                    setattr(app.root.ids.FormWindow.ids.ClearButton, "text", "Form cleared!"), 
+                    time.sleep(3),
+                    setattr(app.root.ids.FormWindow.ids.ClearButton, "text", "Clear form"))).start()
 
 class MainWindow(Screen):
     def start_button_click(self):
@@ -183,29 +214,9 @@ class WindowManager(ScreenManager):
 class EztraCurriculesApp(App):
     def build(self):
 
-        # Data storage for persistant data between sessions
-        '''
-        store_connection = sqlite3.connect("app_data.db")
-        store_cursor = store_connection.cursor()
-        store_cursor.executescript()
-        store_connection.commit()
-        store_connection.close()
-        '''
-
-        # Allows application to be resized
-        Config.set('graphics', 'resizable', '1')
-        Config.set('graphics', 'width', '375')
-        Config.set('graphics', 'height', '812')
-        Config.write()
-
         global app
         app = App.get_running_app()
 
-
-        if not user_data_Json.exists("keywords"):
-            user_data_Json.put("user_data",  keywords = [""])
-
-        temp_data["keywords"] = user_data_Json.get("user_data")["keywords"]
         temp_data["groups"] = app_data_Json.get("groups")
 
         return Builder.load_file("EztraCurricules.kv")
