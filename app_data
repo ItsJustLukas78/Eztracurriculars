@@ -9,6 +9,9 @@
         "robotics",
         "robots",
         "code", 
+        "coding",
+        "developing",
+        "c",
         "vex",
         "competitions",
         "tournaments",
@@ -16,6 +19,7 @@
         "design",
         "programming",
         "build",
+        "building",
         "club",
         "pros",
         "bots", 
@@ -25,7 +29,8 @@
     "Key Club": {
         "bio": "An international student-led organization that offers volunteer opportunities for high schoolers",
         "links": {
-          "Website": "https://dublinkeyclub.wixsite.com/dhskc"
+          "Website": "https://dublinkeyclub.wixsite.com/dhskc",
+          "Discord": "https://discord.gg/GrFaa7BAA3"
         },
         "keywords": [
           "community service",
@@ -37,14 +42,16 @@
           "volunteer hours",
           "service hours",
           "charity",
-          "raise money"
+          "raise money",
+          "community",
+          "service"
         ]
     },
     "DHS Speech & Debate": {
       "bio": "Represent DHS at competitive tournaments and develop communication, world knowledge, argumentation, critical thinking, and writing skills",
       "links": {
         "Website": "https://dhsspeechndebate.weebly.com/",
-        "Guide": "https://docs.google.com/document/d/1N_Iuq2sLSx8fXeFtHW-vOkV75VBGtanJcdffkrR-NgY/edit",
+        "Doc": "https://docs.google.com/document/d/1N_Iuq2sLSx8fXeFtHW-vOkV75VBGtanJcdffkrR-NgY/edit",
         "Discord": "https://discord.gg/beHrUDZ"
       },
       "keywords": [
@@ -66,7 +73,8 @@
     "Astronomy Club": {
       "bio": "Prompt interest in astronomy and alike, expanding knowledge with one another as well as listening to guest speakers. Members will view the stars and learn how to use a telescope, as well as be invited to star parties.",
       "links": {
-        "Website": "https://docs.google.com/document/d/1HnSHUwS0nOd6CMF4jqqWiEyWjQoraqboc_rrEWdzcAo/edit",
+        "Website": "https://sites.google.com/mydusd.org/dhsastronomy/home",
+        "Doc": "https://docs.google.com/document/d/1HnSHUwS0nOd6CMF4jqqWiEyWjQoraqboc_rrEWdzcAo/edit",
         "Sign up here!": "https://docs.google.com/forms/d/15Z2X-wE8ajJN_xtjzjK0hND7z1apnr0h6JRfCpKB6hs/viewform?edit_requested=true"
       },
       "keywords": [
@@ -85,10 +93,10 @@
         "astronomy club"
       ]
     },
-    "CSF: California Scholarship Federation": {
+    "CSF California Scholarship Federation": {
       "bio": "Join an honors organization focused on academic achievements and community service, emphasizing high Californian scholarship standards. Members apply using an application along with grades and GPA, and accepted students will do volunteer hours for scholarships.",
       "links": {
-        "Info": "https://docs.google.com/document/d/1lv6doYeAKRPh5Bj14PQUCaTThd-4-jjdT00DhTtBuCo/edit"
+        "Website": "https://dublincsf.com/"
       },
       "keywords": [
         "volunteer",
@@ -109,7 +117,7 @@
     "Dublin Shield": {
       "bio": "Participate in writing the school newspaper, which has originated in at least the 80s. Provide weekly news about Dublin High to all students and staff, publishing news biweekly while also expanding on social media presence.",
       "links": {
-        "Info": "https://docs.google.com/document/d/1cRIgHiFU_da98mPNVoyKX_x9Gg26bd83NEtPSZ0c1MI/edit"
+        "Doc": "https://docs.google.com/document/d/1cRIgHiFU_da98mPNVoyKX_x9Gg26bd83NEtPSZ0c1MI/edit"
       },
       "keywords": [
         "news",
@@ -127,8 +135,8 @@
     "Gender Sexuality Alliance": {
      "bio": "Become part of a safe space in Dublin High school ,open to all LGBTQIA+ students and allies. Learn about the community and become more informed of the important issues revolving around sexuality and become part of the community as a whole.",
      "links": {
-       "Sign up & Description": "https://docs.google.com/document/d/1Qbx9ntXq0kla5iApk4rBIUN6A0-xGE59Hw9n8lM0dPY/edit",
-       "Questions for Club (School email required)": "https://docs.google.com/forms/d/1puz4JqjZ8xRgWzcUWgrbHwxROYa1O3YmBy1wzfXKmCM/viewform?edit_requested=true"
+       "Doc": "https://docs.google.com/document/d/1Qbx9ntXq0kla5iApk4rBIUN6A0-xGE59Hw9n8lM0dPY/edit",
+       "Questions for Club": "https://docs.google.com/forms/d/1puz4JqjZ8xRgWzcUWgrbHwxROYa1O3YmBy1wzfXKmCM/viewform?edit_requested=true"
       },
      "keywords": [
        "lgbtqia+",
@@ -146,10 +154,10 @@
        "pansexual"
       ]
     },
-    "Creativity Club": {
+    "Crazy Creativity Club": {
       "bio": "Express creativity through many extracurriculars and reduce stress levels with friends. Available activities include sewing, drawing, art, painting, cooking, baking, and scrapbooking. ",
       "links": {
-        "Sign up!": "https://docs.google.com/document/d/1Rh8uCnj2I7qYwiod5_Swx0fVA8HxmEs_tJKnCGdmLW0/edit"
+        "Resources": "https://docs.google.com/presentation/d/1QGqqcn7cSlcAJO6MVoeDXNl2IJdKViDaQ52tPRj6taU/edit#slide=id.p"
        },
       "keywords": [
         "creativity",
@@ -166,7 +174,7 @@
        ]
      },
      "Dublin Athletics": {
-      "bio": "Participate in extracurriculars such as track or basketball, and get yourself involved with Dublin High School.",
+      "bio": "Participate in sports such as track or basketball, and get yourself involved with Dublin High School.",
       "links": {
         "Website": "https://dublingaels.com/"
        },
