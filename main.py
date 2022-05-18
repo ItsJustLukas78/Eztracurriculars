@@ -21,7 +21,7 @@ Config.set('graphics', 'resizable', '1')
 
 # Sets width and height at which the app should launch at
 Config.set('graphics', 'width', '375')
-Config.set('graphics', 'height', '812')
+Config.set('graphics', 'height', '700')
 Config.write()
 
 # Constants
@@ -78,8 +78,12 @@ class BrowseObject(BoxLayout):
         self.Image1 = Image(source = "Images/" + title + ".png", mipmap = True, size_hint = (0.3, 1))
         self.BoxLayout2.add_widget(self.Image1)
 
+        initial_title_font_size = 18
+        subtraction = len(title) // 15
+        title_font_size = str(initial_title_font_size - subtraction) + "sp"
+
         # Title
-        self.Label1 = Label(text = title, font_name ="Roboto-Bold", font_size = "18sp", valign = "bottom", halign = "left", padding = (5, 5),size_hint = (0.7, 1))
+        self.Label1 = Label(text = title, font_name ="Roboto-Bold", font_size = title_font_size, valign = "bottom", halign = "left", padding = (5, 5),size_hint = (0.7, 1))
         self.BoxLayout2.add_widget(self.Label1)
 
         # Bio
