@@ -52,7 +52,9 @@ class BrowseObject(BoxLayout):
 
         
         """
+        # Returns the __init__ method of class parent, BoxLayout, so we can call its methods
         super().__init__(**kwargs)
+
         self.orientation = "horizontal"
         self.size_hint=(1, None)
         self.height = app.root.ids.FormWindow.size[1] * BROWSE_OBJECT_HEIGHT
@@ -66,6 +68,7 @@ class BrowseObject(BoxLayout):
         # Top Layout
         self.BoxLayout2 = BoxLayout(orientation="horizontal", padding = (3, 3), size_hint = (1, 0.25))
         self.BoxLayout1.add_widget(self.BoxLayout2)
+        # Creating a rectangle on the layout so that we can have a colored background
         with self.BoxLayout2.canvas.before:
             Color(*BROWSE_OBJECT_TITLE_COLOR)
             self.BoxLayout2.rect = Rectangle(pos = self.BoxLayout2.pos, size = self.BoxLayout2.size)
@@ -99,6 +102,7 @@ class BrowseObject(BoxLayout):
             self.StackLayout1.rect = Rectangle(pos = self.StackLayout1.pos,size = self.StackLayout1.size)
         self.widgets_with_canvas.append(self.StackLayout1)
         
+        # Creating link buttons
         if links != None:
             for link in links:
                 button_name = link + "Button"
@@ -109,6 +113,7 @@ class BrowseObject(BoxLayout):
 
                 self.StackLayout1.add_widget(button)
 
+                # When the button is pressed, it calls the partial function which passes its url to "link_callback" method
                 open_link = partial(self.link_callback, url)
                 button.bind(on_release = open_link)
 
@@ -119,13 +124,15 @@ class BrowseObject(BoxLayout):
             Color(*BROWSE_OBJECT_BOTTOM_LAYOUT_COLOR)
             self.Label3.rect = Rectangle(pos = self.Label3.pos,size = self.Label3.size)
         self.widgets_with_canvas.append(self.Label3)
-    
+        
+        # When app root size is changed, call "update" method
         app.root.bind(size=self.update)
 
         for Element in self.widgets_with_canvas:
             Element.bind(pos=self.update)
             Element.bind(size=self.update)
 
+    # Update sizes
     def update(self, *args):
         self.height = app.root.size[1] * BROWSE_OBJECT_HEIGHT
         for Element in self.widgets_with_canvas:
@@ -133,6 +140,7 @@ class BrowseObject(BoxLayout):
             Element.rect.size = Element.size
             Element.text_size = Element.size
     
+    # Opens url in browser with given link
     def link_callback(self, url, *args):
         webbrowser.open(url)
 
@@ -148,6 +156,7 @@ class FormWindow(Screen):
         
         browser_layout = self.parent.ids.BrowseWindow.ids.browser_layout
 
+        # Remove existing BrowserObjects on the brose page
         for widget in temp_data["browser_objects"]:
             browser_layout.remove_widget(widget)
         
@@ -188,6 +197,7 @@ class FormWindow(Screen):
             app.root.transition.direction = "left"
             app.root.current = "Browse"
         else:
+            # Changing the text of the buttons on a different thread so kivy can update the GUI on main thread
             threading.Thread(
                 target = lambda: (
                     setattr(app.root.ids.FormWindow.ids.SubmitButton, "text", "No groups were matched!"), 
