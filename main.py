@@ -225,7 +225,7 @@ class MainWindow(Screen):
 class WindowManager(ScreenManager):
     pass
 
-class EztracurriculersApp(App):
+class EztracurricularsApp(App):
     def build(self):
 
         global app
@@ -233,9 +233,9 @@ class EztracurriculersApp(App):
 
         temp_data["groups"] = app_data_Json.get("groups")
 
-        return Builder.load_file("Eztracurriculers.kv")
+        return Builder.load_file("Eztracurriculars.kv")
 
 # If the python file was called ..
 if __name__ == '__main__':
     # Loop that continuously runs until the application gui is closed
-    EztracurriculersApp().run()
+    EztracurricularsApp().run()
