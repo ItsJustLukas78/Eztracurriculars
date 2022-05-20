@@ -1,8 +1,28 @@
+import subprocess
+import sys
+import importlib
+
+# Installing modules not included with python using pip
+imports = {"kivy": "kivy", "pyrebase": "pyrebase4"}
+print("Installing modules, this may take awhile")
+for new_import in imports:
+    try:
+        import_attempt = importlib.import_module(new_import)
+    except ImportError:
+        try:
+            subprocess.check_call([sys.executable, "-m", "pip", "install", imports[new_import]])
+        except Exception as e:
+            print(e)
+            sys.exit("The module " + new_import + " could not be installed, please install it manualy")
+        else:
+            import_attempt = importlib.import_module(new_import)
+    finally:
+        globals()[new_import] = import_attempt
+
 import webbrowser
 import time
 import threading
 import json
-import pyrebase
 import os
 from functools import partial
 from kivy.app import App
@@ -75,8 +95,13 @@ class BrowseObject(BoxLayout):
             self.BoxLayout2.rect = Rectangle(pos = self.BoxLayout2.pos, size = self.BoxLayout2.size)
         self.widgets_with_canvas.append(self.BoxLayout2)
 
+        if os.path.isfile(title + ".png"):
+            image_source = title + ".png"
+        else:
+            image_source = "Images/default.png"
+
         # Logo
-        self.Image1 = Image(source = title + ".png", mipmap = True, size_hint = (0.3, 1))
+        self.Image1 = Image(source = image_source, mipmap = True, size_hint = (0.3, 1))
         self.BoxLayout2.add_widget(self.Image1)
 
         initial_title_font_size = 18
@@ -164,8 +189,19 @@ class FormWindow(Screen):
         # Remove existing BrowserObjects on the brose page
         for widget in temp_data["browser_objects"]:
             browser_layout.remove_widget(widget)
-        
-        temp_data["groups"] = dict(data_storage.child("groups").get().val())
+
+        try:
+            temp_data["groups"] = dict(data_storage.child("groups").get().val())
+        except:
+            print("WARNING: Keywords could not be retrieved")
+            threading.Thread(
+                target = lambda: (
+                    setattr(app.root.ids.FormWindow.ids.SubmitButton, "text", "Keywords could not be retrieved"), 
+                    time.sleep(3),
+                    setattr(app.root.ids.FormWindow.ids.SubmitButton, "text", "Submit form"))).start()
+            return
+
+
         temp_data["browser_objects"] = []
 
         user_keywords = temp_data["keywords"]
@@ -196,7 +232,10 @@ class FormWindow(Screen):
             for group in results:
                 print("CREATING GROUP", group)
 
-                image_storage.child(group + ".png").download("./Images", group + ".png")
+                try:
+                    image_storage.child(group + ".png").download("./Images", group + ".png")
+                except:
+                    print("ERROR: Unable to download image for " + group)
 
                 group_data = temp_data["groups"][group]
 
@@ -252,7 +291,7 @@ class EztracurricularsApp(App):
         "appId": "1:396922878388:web:d0f1fd96f0f8eac5ca9ae1"
         }
 
-        firebase_storage = pyrebase.initialize_app(firebase_config)
+        firebase_storage = globals()[new_import].initialize_app(firebase_config)
     
         global image_storage
         image_storage = firebase_storage.storage()
