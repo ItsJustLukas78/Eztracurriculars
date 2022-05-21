@@ -1,6 +1,29 @@
+import subprocess
+import sys
+import importlib
+
+# Installing modules not included with python using pip
+imports = {"kivy": "kivy", "pyrebase": "pyrebase4"}
+print("Installing modules, this may take awhile")
+for new_import in imports:
+    try:
+        import_attempt = importlib.import_module(new_import)
+    except ImportError:
+        try:
+            subprocess.check_call([sys.executable, "-m", "pip", "install", imports[new_import]])
+        except Exception as e:
+            print(e)
+            sys.exit("The module " + new_import + " could not be installed, please install it manualy")
+        else:
+            import_attempt = importlib.import_module(new_import)
+    finally:
+        globals()[new_import] = import_attempt
+
 import webbrowser
 import time
 import threading
+import json
+import os
 from functools import partial
 from kivy.app import App
 from kivy.config import Config
@@ -13,8 +36,6 @@ from kivy.uix.stacklayout import StackLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.image import Image
-
-app_data_Json = JsonStore("app_data")
 
 # Allows application to be resized
 Config.set('graphics', 'resizable', '1')
@@ -74,8 +95,13 @@ class BrowseObject(BoxLayout):
             self.BoxLayout2.rect = Rectangle(pos = self.BoxLayout2.pos, size = self.BoxLayout2.size)
         self.widgets_with_canvas.append(self.BoxLayout2)
 
+        if os.path.isfile(title + ".png"):
+            image_source = title + ".png"
+        else:
+            image_source = "Images/default.png"
+
         # Logo
-        self.Image1 = Image(source = "Images/" + title + ".png", mipmap = True, size_hint = (0.3, 1))
+        self.Image1 = Image(source = image_source, mipmap = True, size_hint = (0.3, 1))
         self.BoxLayout2.add_widget(self.Image1)
 
         initial_title_font_size = 18
@@ -163,9 +189,21 @@ class FormWindow(Screen):
         # Remove existing BrowserObjects on the brose page
         for widget in temp_data["browser_objects"]:
             browser_layout.remove_widget(widget)
-        
+
+        try:
+            temp_data["groups"] = dict(data_storage.child("groups").get().val())
+        except:
+            print("WARNING: Keywords could not be retrieved")
+            threading.Thread(
+                target = lambda: (
+                    setattr(app.root.ids.FormWindow.ids.SubmitButton, "text", "Keywords could not be retrieved"), 
+                    time.sleep(3),
+                    setattr(app.root.ids.FormWindow.ids.SubmitButton, "text", "Submit form"))).start()
+            return
+
+
         temp_data["browser_objects"] = []
-        
+
         user_keywords = temp_data["keywords"]
 
         def create_result():
@@ -193,9 +231,17 @@ class FormWindow(Screen):
         if results != {}:
             for group in results:
                 print("CREATING GROUP", group)
+
+                try:
+                    image_storage.child(group + ".png").download("./Images", group + ".png")
+                except:
+                    print("ERROR: Unable to download image for " + group)
+
                 group_data = temp_data["groups"][group]
+
                 Layout = BrowseObject(group, group_data["bio"], results[group]["matched_keywords"], group_data["links"])
                 browser_layout.add_widget(Layout)
+
                 temp_data["browser_objects"].append(Layout)
 
             app.root.transition.direction = "left"
@@ -231,10 +277,34 @@ class EztracurricularsApp(App):
         global app
         app = App.get_running_app()
 
-        temp_data["groups"] = app_data_Json.get("groups")
-
         return Builder.load_file("Eztracurriculars.kv")
+    
+    def on_start(self):
+        
+        firebase_config = {
+        "apiKey": "AIzaSyBYbKOM2xZ5bXQUzn6_mKtoKG5BuwxTjoQ",
+        "authDomain": "eztracurriculars.firebaseapp.com",
+        "databaseURL": "https://eztracurriculars-default-rtdb.firebaseio.com",
+        "projectId": "eztracurriculars",
+        "storageBucket": "eztracurriculars.appspot.com",
+        "messagingSenderId": "396922878388",
+        "appId": "1:396922878388:web:d0f1fd96f0f8eac5ca9ae1"
+        }
 
+        firebase_storage = globals()[new_import].initialize_app(firebase_config)
+    
+        global image_storage
+        image_storage = firebase_storage.storage()
+
+        global data_storage
+        data_storage = firebase_storage.database()
+
+    def on_stop(self):
+
+        file_list = [f for f in os.listdir(".") if f.endswith(".png")]
+        for f in file_list:
+            os.remove(os.path.join("./", f))
+        
 # If the python file was called ..
 if __name__ == '__main__':
     # Loop that continuously runs until the application gui is closed
